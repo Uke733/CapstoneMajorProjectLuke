@@ -1,42 +1,25 @@
 //Declarations
-PImage pic;
+PImage pic, pic2;
 grid PlayingGrid;
+int count = 0;
+int turn = 1;
 
 //Calling Functions
 void setup(){
-  size(900,900);
+  size(600,600);
   PlayingGrid = new grid(3,3);
   pic = loadImage("Transparent_X.png");
+  pic2 = loadImage("O_number_2.png");
 }
 
 void draw() {
   PlayingGrid.displayGrid();
 }
-int count = 0;
+
 void mousePressed() {
   if (count < 1000){
     PlayingGrid.click(mouseX, mouseY);
   }
-  //  if (mouseX > 210){
-  //    coll = 1;
-  //    }
-  //  else if (mouseX > 420){
-  //    coll = 2;
-  //    }
-  //  else if(mouseX < 630){
-  //    coll = 3;
-  //    }
-  //  if (mouseY > 210){
-  //    row = 1;
-  //    }
-  //  else if (mouseY > 420){
-  //    row = 2;
-  //    }
-  //  else if(mouseY < 630){
-  //    row = 3;
-  //    }
-  //  count++;
-  //}
 }
 
 void keyPressed() {
@@ -49,46 +32,52 @@ void keyPressed() {
 class grid{
   int rows, columns;
   int[][] gridarray;
-  int CellWidth = width / columns;
-  int CellHeight = height / rows;
+  int CellWidth;
+  int CellHeight;
   
   grid(int temp1,int temp2){
-  rows = temp1;
-  columns = temp2;
-  gridarray = new int[rows][columns];
-  clear();
+    rows = temp1;
+    columns = temp2;
+    gridarray = new int[rows][columns];
+    CellWidth = width / columns;
+    CellHeight = height / rows;
+    
+    clear();
 }
   void displayGrid(){
   
     for (int y = 0; y < rows; y++){
       for(int x = 0; x < columns; x++){
         
-        //available
+        //available, make second array to determine which squares are taken.
         if (gridarray[y][x] == 1){
-        fill(255);
-      }
-      else{
-        image(pic,(columns * CellWidth),(rows * CellWidth));
-      }
-     
-      rect(x * CellWidth, y * CellHeight, CellWidth, CellHeight);
+          if (turn == 2){
+            image(pic,(x * CellWidth),(y * CellWidth));
+          }
+          else{
+            image(pic2,(x * CellWidth),(y * CellWidth));
+          }
+        }
+        fill(0,0,0,0);
+        rect(x * CellWidth, y * CellHeight, CellWidth, CellHeight);
       }
     }
   }
   
   void click(int mx, int my){
-  int CellWidth = width / columns;
-  int CellHeight = height / rows;
   
-  int x = mx / CellWidth;
-  int y = my / CellHeight;
+    int x = mx / CellWidth;
+    int y = my / CellHeight;
   
-  //if (gridarray[y][x] == false){
-  //  gridarray[y][x]= true;
-  //}
-  //else{
-  //  gridarray[y][x] = false;
-  //}
+  if (gridarray[y][x] == 0){
+    gridarray[y][x]= 1;
+    }
+  if (turn == 1){
+    turn++;
+    }
+  else{
+    turn--;
+    }
 }
   
   void clear() {
