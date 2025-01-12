@@ -1,8 +1,10 @@
+import java.util.*;
 //Declarations
 PImage pic, pic2;
 grid PlayingGrid;
-int count = 0;
-int turn = 1;
+
+//test
+int turn = 2; 
 
 //Calling Functions
 void setup(){
@@ -17,9 +19,14 @@ void draw() {
 }
 
 void mousePressed() {
-  if (count < 1000){
     PlayingGrid.click(mouseX, mouseY);
-  }
+    turn = 3 - turn;
+    if (turn == 1){
+      System.out.println("X's turn");
+    }
+    else{
+      System.out.println("O's turn"); //fix turn printing
+    }
 }
 
 void keyPressed() {
@@ -28,9 +35,8 @@ void keyPressed() {
   }
 }
 
-//Functions
 class grid{
-  int rows, columns;
+  int rows, columns; 
   int[][] gridarray;
   int CellWidth;
   int CellHeight;
@@ -44,20 +50,19 @@ class grid{
     
     clear();
 }
+
   void displayGrid(){
-  
     for (int y = 0; y < rows; y++){
       for(int x = 0; x < columns; x++){
         
-        //available, make second array to determine which squares are taken.
+        //available
+        
         if (gridarray[y][x] == 1){
-          if (turn == 2){
-            image(pic,(x * CellWidth),(y * CellWidth));
+          image(pic, x * CellWidth, y * CellHeight);
           }
-          else{
-            image(pic2,(x * CellWidth),(y * CellWidth));
+        else if (gridarray[y][x] == 2){
+          image(pic2, x * CellWidth, y * CellHeight);  
           }
-        }
         fill(0,0,0,0);
         rect(x * CellWidth, y * CellHeight, CellWidth, CellHeight);
       }
@@ -65,20 +70,18 @@ class grid{
   }
   
   void click(int mx, int my){
-  
     int x = mx / CellWidth;
     int y = my / CellHeight;
-  
-  if (gridarray[y][x] == 0){
-    gridarray[y][x]= 1;
-    }
+  turn = turn - 3;
   if (turn == 1){
-    turn++;
-    }
+    gridarray[y][x] = 1;
+  }
   else{
-    turn--;
+    gridarray[y][x] = 2;
+  }
+      
     }
-}
+
   
   void clear() {
      for(int y = 0; y < rows; y++){
