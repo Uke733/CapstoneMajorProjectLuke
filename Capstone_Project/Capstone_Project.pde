@@ -2,9 +2,7 @@ import java.util.*;
 //Declarations
 PImage pic, pic2;
 grid PlayingGrid;
-
-//test
-int turn = 2; 
+int turn = 2;
 
 //Calling Functions
 void setup(){
@@ -12,6 +10,7 @@ void setup(){
   PlayingGrid = new grid(3,3);
   pic = loadImage("Transparent_X.png");
   pic2 = loadImage("O_number_2.png");
+  System.out.println("X's start");
 }
 
 void draw() {
@@ -22,10 +21,10 @@ void mousePressed() {
     PlayingGrid.click(mouseX, mouseY);
     turn = 3 - turn;
     if (turn == 1){
-      System.out.println("X's turn");
+      System.out.println("O's turn");
     }
     else{
-      System.out.println("O's turn"); //fix turn printing
+      System.out.println("X's turn"); 
     }
 }
 
@@ -58,10 +57,10 @@ class grid{
         //available
         
         if (gridarray[y][x] == 1){
-          image(pic, x * CellWidth, y * CellHeight);
+          image(pic2, x * CellWidth, y * CellHeight);
           }
-        else if (gridarray[y][x] == 2){
-          image(pic2, x * CellWidth, y * CellHeight);  
+        if (gridarray[y][x] == 2){
+          image(pic, x * CellWidth, y * CellHeight);  
           }
         fill(0,0,0,0);
         rect(x * CellWidth, y * CellHeight, CellWidth, CellHeight);
@@ -72,7 +71,6 @@ class grid{
   void click(int mx, int my){
     int x = mx / CellWidth;
     int y = my / CellHeight;
-  turn = turn - 3;
   if (turn == 1){
     gridarray[y][x] = 1;
   }
@@ -89,5 +87,6 @@ class grid{
          gridarray[y][x] = 0;
        }
      }
+     background(204);
   }
 }
