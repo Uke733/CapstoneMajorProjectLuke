@@ -20,13 +20,16 @@ void draw() {
 void mousePressed() {
     PlayingGrid.click(mouseX, mouseY);
     turn = 3 - turn;
-    if (turn == 1){
-      System.out.println("O's turn");
+    if (win() == false){
+      if (turn == 1){
+        System.out.println("O's turn");
+      }
+      else{
+        System.out.println("X's turn"); 
+      }
+      }
     }
-    else{
-      System.out.println("X's turn"); 
-    }
-}
+  
 
 void keyPressed() {
   if(key == 'c'){
@@ -55,7 +58,6 @@ class grid{
       for(int x = 0; x < columns; x++){
         
         //available
-        
         if (gridarray[y][x] == 1){
           image(pic2, x * CellWidth, y * CellHeight);
           }
@@ -69,16 +71,23 @@ class grid{
   }
   
   void click(int mx, int my){
+    win();
     int x = mx / CellWidth;
     int y = my / CellHeight;
   if (turn == 1){
     gridarray[y][x] = 1;
+    if(win() == true){
+    System.out.println("O wins");
+      } 
+
   }
   else{
     gridarray[y][x] = 2;
+    if(win() == true){
+    System.out.println("X wins");
+      } 
+    }   
   }
-      
-    }
 
   
   void clear() {
@@ -88,5 +97,29 @@ class grid{
        }
      }
      background(204);
+  }
+  boolean win(){
+    //check columns for win
+    for(int x = 0; x < columns; x++){
+      if (gridarray[0][x] != 0 && gridarray[0][x] == gridarray[1][x] && gridarray[1][x] == gridarray[2][x]){
+        return true;
+      }
+    }
+    //check rows for win
+    for(int y = 0; y < rows; y++){
+      if(gridarray[y][0] != 0 && gridarray[y][0] == gridarray[y][1] && gridarray[y][1] == gridarray[y][2]){
+        return true;
+      }
+    }
+    //check diagonals for win
+    if(gridarray[0][0] != 0 && gridarray[0][0] == gridarray[1][1] && gridarray[1][1] == gridarray[2][2]){
+      return true;
+    }
+    if(gridarray[0][2] != 0 && gridarray[0][2] == gridarray[1][1] && gridarray[1][1] == gridarray[2][0]){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
