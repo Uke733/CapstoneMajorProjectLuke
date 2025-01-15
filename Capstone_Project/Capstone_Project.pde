@@ -2,9 +2,9 @@ import java.util.*;
 //Declarations
 PImage pic, pic2;
 grid PlayingGrid;
-int turn = 2;
+int turn = 1;
 
-//Calling Functions
+//Size of grid, creating new grid with 3 rows 3 columns, setting up X and O images, X places first
 void setup(){
   size(600,600);
   PlayingGrid = new grid(3,3);
@@ -18,16 +18,8 @@ void draw() {
 }
 
 void mousePressed() {
-    PlayingGrid.click(mouseX, mouseY);
     turn = 3 - turn;
-    if (win() == false){
-      if (turn == 1){
-        System.out.println("O's turn");
-      }
-      else{
-        System.out.println("X's turn"); 
-      }
-      }
+    PlayingGrid.click(mouseX, mouseY);
     }
   
 
@@ -53,6 +45,7 @@ class grid{
     clear();
 }
 
+//drawing grid
   void displayGrid(){
     for (int y = 0; y < rows; y++){
       for(int x = 0; x < columns; x++){
@@ -69,37 +62,22 @@ class grid{
       }
     }
   }
-  
-  void click(int mx, int my){
-    win();
-    int x = mx / CellWidth;
-    int y = my / CellHeight;
-  if (turn == 1){
-    gridarray[y][x] = 1;
-    if(win() == true){
-    System.out.println("O wins");
-      } 
-
-  }
-  else{
-    gridarray[y][x] = 2;
-    if(win() == true){
-    System.out.println("X wins");
-      } 
-    }   
-  }
-
-  
-  void clear() {
-     for(int y = 0; y < rows; y++){
-       for(int x = 0; x < rows; x++){
-         gridarray[y][x] = 0;
-       }
-     }
-     background(204);
-  }
+  //win condition
+  //int Xwins = 0;
+  //int Owins = 0;
   boolean win(){
     //check columns for win
+    //if(win() == false){
+    //  clear();
+    //  if (turn == 1){
+    //    Xwins++;
+    //  }
+    //  else{
+    //    Owins++;
+    //  }
+    //  System.out.println("Game Reset");
+    //  System.out.println("X has " + Xwins + "wins and O has " + Owins);
+    //}
     for(int x = 0; x < columns; x++){
       if (gridarray[0][x] != 0 && gridarray[0][x] == gridarray[1][x] && gridarray[1][x] == gridarray[2][x]){
         return true;
@@ -122,4 +100,39 @@ class grid{
       return false;
     }
   }
+//Calling win and turns function when click is called  
+  void click(int mx, int my){
+    win();
+    int x = mx / CellWidth;
+    int y = my / CellHeight;
+    if (win() == false){
+     if (turn == 1){
+          System.out.println("X's turn");
+        }
+      else{
+          System.out.println("O's turn"); 
+        }
+        }
+    if (turn == 1){
+      gridarray[y][x] = 1;
+      if(win() == true){
+      System.out.println("O wins");
+        } 
+      }
+    else{
+      gridarray[y][x] = 2;
+      if(win() == true){
+      System.out.println("X wins");
+        } 
+      }   
+  }
+  
+  void clear() {
+     for(int y = 0; y < rows; y++){
+       for(int x = 0; x < rows; x++){
+         gridarray[y][x] = 0;
+       }
+     }
+     background(204);
+  } 
 }
