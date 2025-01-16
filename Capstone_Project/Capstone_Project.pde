@@ -62,22 +62,7 @@ class grid{
       }
     }
   }
-  //win condition
-  //int Xwins = 0;
-  //int Owins = 0;
   boolean win(){
-    //check columns for win
-    //if(win() == false){
-    //  clear();
-    //  if (turn == 1){
-    //    Xwins++;
-    //  }
-    //  else{
-    //    Owins++;
-    //  }
-    //  System.out.println("Game Reset");
-    //  System.out.println("X has " + Xwins + "wins and O has " + Owins);
-    //}
     for(int x = 0; x < columns; x++){
       if (gridarray[0][x] != 0 && gridarray[0][x] == gridarray[1][x] && gridarray[1][x] == gridarray[2][x]){
         return true;
@@ -101,6 +86,7 @@ class grid{
     }
   }
 //Calling win and turns function when click is called  
+  int Xwins, Owins = 0;
   void click(int mx, int my){
     win();
     int x = mx / CellWidth;
@@ -117,12 +103,16 @@ class grid{
       gridarray[y][x] = 1;
       if(win() == true){
       System.out.println("O wins");
+      Owins++;
+      System.out.println("O has " + Owins + " win(s)");
         } 
       }
     else{
       gridarray[y][x] = 2;
       if(win() == true){
       System.out.println("X wins");
+      Xwins++;
+      System.out.println("X has " + Xwins + " win(s)");
         } 
       }   
   }
