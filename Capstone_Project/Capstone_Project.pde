@@ -10,7 +10,7 @@ void setup(){
   PlayingGrid = new grid(3,3);
   pic = loadImage("Transparent_X.png");
   pic2 = loadImage("O_number_2.png");
-  System.out.println("X's start");
+  System.out.println("X's START, press 'c' to CLEAR");
 }
 
 void draw() {
@@ -105,6 +105,7 @@ class grid{
       System.out.println("O wins");
       Owins++;
       System.out.println("O has " + Owins + " win(s)");
+      clear();
         } 
       }
     else{
@@ -113,6 +114,7 @@ class grid{
       System.out.println("X wins");
       Xwins++;
       System.out.println("X has " + Xwins + " win(s)");
+      clear();
         } 
       }   
   }
