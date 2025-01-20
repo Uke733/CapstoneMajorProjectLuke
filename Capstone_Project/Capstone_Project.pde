@@ -6,6 +6,7 @@
 
 // Program Description: Visual Tic-Tac-Toe, 3 consecutive X's or O's placed in a column or row to win the game.
 
+//import java.util.Scanner;
 // Declaring images
 PImage pic, pic2;
 grid PlayingGrid;
@@ -13,11 +14,21 @@ grid PlayingGrid;
 // Size of grid, creating new grid with 3 rows 3 columns, setting up X and O images, prints instructions
 void setup(){
   size(600,600);
-  PlayingGrid = new grid(3,3);
   pic = loadImage("Transparent_X.png");
   pic2 = loadImage("O_number_2.png");
   System.out.println("~~~ 3 consecutive X's or O's placed in a column or row to win the game ~~~");
   System.out.println("~~~ X's START, press 'c' to RESET Game ~~~");
+  
+  ////Inputting number of rows
+  //Scanner InputRows = new Scanner(System.in);
+  //System.out.println("Enter the number of rows");
+  //int InputRows2 = InputRows.nextInt();
+  ////Inputting number of columns
+  //Scanner InputCols = new Scanner(System.in);
+  //System.out.println("Enter the number of columns");
+  //int InputCols2 = InputCols.nextInt();
+  
+  PlayingGrid = new grid(3, 3);
 }
 
 // Calling new grid to conditionally display X's and O's
@@ -46,19 +57,18 @@ class grid{
   int CellWidth;
   int CellHeight;
   boolean[][] IsPopulated;
-  // Ensuring overwritting does not occur
- 
   
+  // Ensuring overwritting does not occur
   grid(int temp1,int temp2){
     rows = temp1;
     columns = temp2;
     gridarray = new int[rows][columns];
     CellWidth = width / columns;
     CellHeight = height / rows;
-    IsPopulated = new boolean [3][3];
+    IsPopulated = new boolean [rows][columns];
     clearme();
   }
-
+  
   // Drawing grid
   void displayGrid(){
     for (int y = 0; y < rows; y++){
@@ -85,9 +95,11 @@ class grid{
     foundwin = false;
     // Checks columns for win
     for(int x = 0; x < columns; x++){
-      if (gridarray[0][x] != 0 && gridarray[0][x] == gridarray[1][x] && gridarray[1][x] == gridarray[2][x]){
-        foundwin = true;
-      }
+      //for(int y = 0; y < rows; y++){
+        if (gridarray[0][x] != 0 && gridarray[0][x] == gridarray[1][x] && gridarray[1][x] == gridarray[2][x]){
+          foundwin = true;
+        }
+      //}
     }
     // Checks rows for win
     for(int y = 0; y < rows; y++){
@@ -152,7 +164,6 @@ class grid{
           clearme();
         } 
       }
-      
   }
   // Tells player they have clicked on a already used square
   else{
@@ -162,8 +173,8 @@ class grid{
   
   // Clear function, checks rows and columns to reset each image
   void clearme() {
-     for(int a = 0; a < 3; a++){
-       for(int b = 0; b < 3; b++){
+     for(int a = 0; a < rows; a++){
+       for(int b = 0; b < columns; b++){
           gridarray[a][b] = 0;
           // Resets playing board in terms of overlapping
           IsPopulated[a][b] = false;
