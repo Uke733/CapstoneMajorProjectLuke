@@ -2,7 +2,7 @@
 
 // Student name: (Luke Filipchuk)
 
-// Date: (Jan 20)
+// Date: (Jan 21)
 
 // Program Description: Visual Tic-Tac-Toe, 3 consecutive X's or O's placed in a column or row to win the game.
 
@@ -18,6 +18,8 @@ void setup(){
   pic2 = loadImage("O_number_2.png");
   System.out.println("~~~ 3 consecutive X's or O's placed in a column or row to win the game ~~~");
   System.out.println("~~~ X's START, press 'c' to RESET Game ~~~");
+  
+  //Supposed to be additional code for input but unfinished  
   
   ////Inputting number of rows
   //Scanner InputRows = new Scanner(System.in);
@@ -95,11 +97,9 @@ class grid{
     foundwin = false;
     // Checks columns for win
     for(int x = 0; x < columns; x++){
-      //for(int y = 0; y < rows; y++){
         if (gridarray[0][x] != 0 && gridarray[0][x] == gridarray[1][x] && gridarray[1][x] == gridarray[2][x]){
           foundwin = true;
         }
-      //}
     }
     // Checks rows for win
     for(int y = 0; y < rows; y++){
